@@ -25,6 +25,12 @@ public class EmployeeDao {
 	}
 
 	public Employee getEmployeeById(Long id) {
+		/**
+		 * queryForObject()方法需要：
+		 * 一个SQL查询语句，
+		 * 一个RowMapper对象（把数据映射为一个域对象），
+		 * 零个或多个查询参数
+		 */
 		return jdbcTemplate.queryForObject(
 				"select id, firstname, lastname, salary from employee where id=?",
 				new RowMapper<Employee>() {
