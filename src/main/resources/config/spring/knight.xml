@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://www.springframework.org/schema/context 
+       	http://www.springframework.org/schema/context/spring-context.xsd 
+       	http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="true">
+<!-- 
+xmlns ——是XML NameSpace的缩写，因为XML文件的标签名称都是自定义的，自己写的和其他人定义的标签很有可能会重复命名，而功能却不一样，所以需要加上一个namespace来区分这个xml文件和其他的xml文件，类似于java中的package。
+
+xmlns:xsi ——是指xml文件遵守xml规范，xsi全名：xml schema instance，是指具体用到的schema资源文件里定义的元素所准守的规范。即/spring-beans-2.0.xsd这个文件里定义的元素遵守什么标准。
+
+xsi:schemaLocation——是指，本文档里的xml元素所遵守的规范，schemaLocation 属性用来引用(schema)模式文档，解析器可以在需要的情况下使用这个文档对 XML 实例文档进行校验。它的值(URI)是成对出现的，第一个值表示命名空间，第二个值则表示描述该命名空间的模式文档的具体位置，两个值之间以空格分隔。
+ -->
+ 
+ 
+	<!-- 
+	component-scan标签默认情况下自动扫描指定路径下的包（含所有子包），
+	将带有@Component、@Repository、@Service、@Controller标签的类自动注册到spring容器。
+	-->
+	<context:component-scan base-package="tao.tech.study"/> 
+	 
+
+	<!-- 数据源连接信息配置文件 -->
+	<context:property-placeholder location="classpath*:*config/db/db.properties" />
+	<!-- 配置 C3P0 数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+		<property name="driverClass" value="${jdbc.driverClass}"></property>
+		<property name="initialPoolSize" value="${jdbc.initPoolSize}"></property>
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>  
+      
+    <!-- employeeDao -->  
+    <bean id="employeeDao" class="tao.tech.study.spring.springinaction.demo1.dao.EmployeeDao">  
+        <property name="jdbcTemplate" ref="jdbcTemplate" />  
+    </bean>  
+	
+	<bean id="knight" class="tao.tech.study.spring.springinaction.demo1.model.impl.BraveKnight">
+		<!-- 通过DI，一个骑士可以注入各种任务而不与具体的任务耦合 -->
+		<constructor-arg ref="quest" />
+	</bean>
+
+	<bean id="quest" class="tao.tech.study.spring.springinaction.demo1.model.impl.SlayDragonQuest">
+		<constructor-arg value="#{T(System).out}" />
+	</bean>
+
+	<!-- 定义切面 -->
+	<bean id="minstrel" class="tao.tech.study.spring.springinaction.demo1.model.Minstrel">
+		<constructor-arg value="#{T(System).out}" />
+	</bean>
+	<aop:config>
+		<aop:aspect ref="minstrel">
+			<aop:pointcut id="embark" expression="execution(* *.embarkOnQuest(..))" />
+			
+			<!-- 前置通知（before advice） -->
+			<aop:before pointcut-ref="embark" method="singBeforeQuest" />
+			
+			<!-- 后置通知（after advice） -->
+			<aop:after pointcut-ref="embark" method="singAfterQuest" />
+			
+		</aop:aspect>
+	</aop:config>
+</beans>
