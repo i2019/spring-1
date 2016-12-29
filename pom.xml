@@ -46,6 +46,13 @@
 		    <version>1.7.21</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.github.stefanbirkner/system-rules -->
+		<dependency>
+		    <groupId>com.github.stefanbirkner</groupId>
+		    <artifactId>system-rules</artifactId>
+		    <version>1.16.1</version>
+		</dependency>
+		
 		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -53,6 +60,13 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.junit.contrib/junit-theories -->
+		<dependency>
+		    <groupId>org.junit.contrib</groupId>
+		    <artifactId>junit-theories</artifactId>
+		    <version>4.12</version>
+		</dependency>
+		
 		<!-- 模拟测试 -->
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
 		<dependency>

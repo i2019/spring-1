@@ -21,6 +21,5 @@ public class KnightMain {
 		
 		context.close();
 		
-		
 	}
 }
