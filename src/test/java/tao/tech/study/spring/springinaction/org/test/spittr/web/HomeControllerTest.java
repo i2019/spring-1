@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 
-import tao.tech.study.spring.springinaction.org.test.spittr.data.Spittle;
 import tao.tech.study.spring.springinaction.org.test.spittr.data.SpittleRepository;
+import tao.tech.study.spring.springinaction.org.test.spittr.model.Spittle;
 import static org.junit.Assert.assertEquals;
 import static 
 org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

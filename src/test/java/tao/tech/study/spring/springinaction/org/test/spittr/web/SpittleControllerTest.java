@@ -13,9 +13,8 @@ import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.view.InternalResourceView;
 
-import tao.tech.study.spring.springinaction.org.test.spittr.data.Spittle;
 import tao.tech.study.spring.springinaction.org.test.spittr.data.SpittleRepository;
-
+import tao.tech.study.spring.springinaction.org.test.spittr.model.Spittle;
 import static org.mockito.Mockito.*;  
 import static org.hamcrest.Matchers.hasItems;  
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;  
@@ -24,10 +23,25 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 public class SpittleControllerTest {
 	
+	@Test  
+	public void testSpittle() throws Exception {  
+	    Spittle expectedSpittle = new Spittle("Hello", new Date());  
+	    SpittleRepository mockRepository = mock(SpittleRepository.class);  
+	    when(mockRepository.findOne(new Long("1234"))).thenReturn(expectedSpittle);  
+	  
+	    SpittleController controller = new SpittleController(mockRepository);  
+	    MockMvc mockMvc = standaloneSetup(controller).build();  
+	  
+	    mockMvc.perform(get("/spittles/12345"))  
+	            .andExpect(view().name("spittle"))  
+	            .andExpect(model().attributeExists("spittle"))  
+	            .andExpect(model().attribute("spittle", expectedSpittle));  
+	}  
+	
 	/*
 	 * mock测试：不需要提供SpittleRepository接口的实现类即可测试
 	 */
-	@Test  
+	//@Test  
     public void shouldShowRecentSpittles() throws Exception {  
         //step1 准备测试数据  
         List<Spittle> expectedSpittles = createSpittleList(20);  

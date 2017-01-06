@@ -1,4 +1,4 @@
-package tao.tech.study.spring.springinaction.org.test.spittr.data;
+package tao.tech.study.spring.springinaction.org.test.spittr.model;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public class Spittle{  
-    private final Long id;  
+    private final Long id=System.currentTimeMillis();  
     private final String message;  
     private final Date time;  
     private Double latitude;  
@@ -17,7 +17,7 @@ public class Spittle{
     }  
   
     public Spittle(String message,Date time, Double latitude, Double longitude) {  
-        this.id = null;  
+        //this.id = null;  
         this.time = time;  
         this.latitude = latitude;  
         this.longitude = longitude;  
@@ -26,7 +26,7 @@ public class Spittle{
   
     public Spittle(Long id, String message, Date time, Double latitude,Double longitude) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.message = message;
 		this.time = time;
 		this.latitude = latitude;
