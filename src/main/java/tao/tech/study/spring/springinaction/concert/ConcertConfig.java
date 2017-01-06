@@ -16,10 +16,15 @@ public class ConcertConfig {
 	public AudienceAround audienceAround(){
 		return new AudienceAround();
 	}
-	
+
 	@Bean
 	public Audience audience(){
 		return new Audience();
+	}
+	
+	@Bean
+	public EncoreableIntroducer encoreableIntroducer(){
+		return new EncoreableIntroducer();
 	}
 	
 }

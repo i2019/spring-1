@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("concert")
-public class Concert implements Performance {
+@Qualifier("opera")
+public class Opera implements Performance {
 
 	@Override
 	public void perform() throws Throwable {
 
-			System.out.println("great concert ");
-			//throw new Throwable("Throwable");
+		System.out.println("Beijing opera");
 
 	}
 

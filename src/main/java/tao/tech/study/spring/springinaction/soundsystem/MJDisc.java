@@ -27,4 +27,10 @@ public class MJDisc implements CompactDisc {
 		return "MJDisc [title=" + title + ", artist=" + artist + "]";
 	}
 
+	@Override
+	public void playTrack(int trackNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

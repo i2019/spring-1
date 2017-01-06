@@ -32,4 +32,10 @@ public class SgtPeppers implements CompactDisc {
 		
 	}
 
+	@Override
+	public void playTrack(int trackNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

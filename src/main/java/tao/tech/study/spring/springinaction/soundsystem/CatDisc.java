@@ -26,4 +26,10 @@ public class CatDisc implements CompactDisc {
 		return "CatDisc [title=" + title + ", artist=" + artist + "]";
 	}
 
+	@Override
+	public void playTrack(int trackNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
