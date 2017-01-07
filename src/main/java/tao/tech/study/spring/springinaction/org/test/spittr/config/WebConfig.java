@@ -11,14 +11,35 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("tao.tech.study.spring.springinaction.org.test.spittr.web")  
 public class WebConfig extends WebMvcConfigurerAdapter{
+	
+	// Tiles
+	  @Bean
+	  public TilesConfigurer tilesConfigurer() {
+	    TilesConfigurer tiles = new TilesConfigurer();
+	    tiles.setDefinitions(new String[] {
+	        "/WEB-INF/layout/tiles.xml",
+	        "/WEB-INF/views/**/tiles.xml"
+	    });
+	    tiles.setCheckRefresh(true);
+	    return tiles;
+	  }
+	  
+	@Bean
+	public ViewResolver viewResolver() {
+	    return new TilesViewResolver();
+	}
+	  
 	/*
 	 * 配置JSP视图解析器  
 	 */
+	/*
 	@Bean  
     public ViewResolver viewResolver() { 
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();  
@@ -27,7 +48,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         resolver.setExposeContextBeansAsAttributes(true); //可以在JSP页面中通过${}访问beans  
         return resolver;  
     }  
-  
+  	*/
+	
 	/*
 	 * 配置静态文件处理  
 	 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#configureDefaultServletHandling(org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer)
