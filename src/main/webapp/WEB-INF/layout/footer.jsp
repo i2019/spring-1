@@ -1,1 +1,1 @@
-Copyright &copy; Craig Walls
+Copyright &copy; Craig Walls-footer.jsp
